@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Accessing Device Camera</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<h1>Accessing Device Camera</h1>
+	<p>Click the button below to access your device's camera:</p>
+	<button onclick="accessCamera()">Access Camera</button>
+	<video id="video" style="display:none;"></video>
+	<script>
+		function accessCamera() {
+			navigator.mediaDevices.getUserMedia({ video: true })
+			.then(function (stream) {
+				var video = document.getElementById('video');
+				video.srcObject = stream;
+				video.onloadedmetadata = function(e) {
+					video.play();
+				};
+			})
+			.catch(function (err) {
+				console.log('Error accessing camera:', err);
+			});
+		}
+	</script>
+</body>
+</html>
